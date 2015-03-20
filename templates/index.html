@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+	{% block body %}
+		<!-- Header and Nav -->
+		<div class="row">
+			<div class="large-3 columns">
+				<h1><img src="" /></h1>
+			</div>
+		</div>
+		<!-- End Header and Nav -->
+
+		<!-- Main Content Section -->
+		<!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
+		<div class="row">
+			<div class="">
+				<h3>Zopper Interview Problem</h3>
+			
+				<br />
+				<h5>Abstract:</h5>
+				<br />
+
+
+				<div>This application has been developed as a part of Zopper Interview for developing an application.
+				<br/>Application reads the pincode directory of India from a csv file downloaded from <a href="https://data.gov.in/resources/all-india-pincode-directory/download">Pincode Directory.</a>
+				<br/><br/>
+				<a href="/getAllData" target="_blank">Click here </a> to go to the online view of directory.
+				<br/><br/> This IRV system just wont only help NGO to automate donations but also different NGOs can share a single number for the same purpose.  <div>
+				<hr/>
+				<h1>Using Search API</h1>
+				<p>Search API
+				Base Request URL:- http://zopper.herokuapp.com/searchAPI<br/>
+				pass the parameter as list of tuples.<br/>
+				For example:<br/>
+				data = [(criteria_no,'filter criteria')]<br/>
+				Below parameter has only one criteria which looks for pincode containing 800002<br/>
+				<br/>
+				data = [('field0', u'pincode,contains,800002')]<br/>
+				Below parameter has two criteria which looks for taluk beginning with 'Banga' or statename is 'assam'<br/>
+				<br/>
+				data = [('field0', u'Taluk,begins,Banga'),('field1','statename,is,assam')]
+				<br/>
+				A maximum of 4 criterias can be used to filter the result.<br/>
+				Pincode, Taluk, District Name, Statename along with is,contains,begins or ends condition.
+				<br/>
+				res = requests.post('http://zopper.herokuapp.com/searchAPI',params=data)<br/>
+				Response will be in json format<br/>
+			</div>
+
+			<!-- Nav Sidebar -->
+			<!-- This is source ordered to be pulled to the left on larger screens -->
+			<div class="large-3 pull-9 columns">
+				<ul class="side-nav">
+					<li><a href="/"></a></li>
+				
+				</ul>
+			</div>
+		</div>
+	{% endblock %}
+</html>
+

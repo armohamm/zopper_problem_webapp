@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pincode Directory of India</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/w2ui-1.4.2.css" />
+    <script src="../static/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="../static/js/w2ui-1.4.2.js"></script>
+</head>
+<body>
+
+<div id="main" style="width: 100%; height: 400px;"></div>
+
+<script type="text/javascript">
+// widget configuration
+var config = {
+    layout: {
+        name: 'layout',
+        padding: 4,
+        panels: [
+            { type: 'left', size: '100%', resizable: true, minSize: 300 },
+            { type: 'main', minSize: 300 }
+        ]
+    },
+    grid: { 
+        name: 'grid',
+        header: 'Pincode Directory of India',
+        show: {
+            toolbar            : true,
+            header         : true,
+            lineNumbers    : true,
+            footer        : true
+
+        },
+        columns: [                
+            { field: 'officename', caption: 'Office Name', size: '120px' },
+            { field: 'pincode', caption: 'Pincode', size: '30%',searchable: true },
+            { field: 'officeType', caption: 'Office Type', size: '30%' },
+            { field: 'Deliverystatus', caption: 'Delivery Status', size: '40%' },
+            { field: 'divisionname', caption: 'Division Name', size: '120px' },
+            { field: 'regionname', caption: 'Region Name', size: '120px' },
+            { field: 'circlename', caption: 'Circle Name', size: '120px' },
+            { field: 'Taluk', caption: 'Taluk', size: '120px',searchable: true },
+            { field: 'Districtname', caption: 'District Name', size: '120px',searchable: true },
+            { field: 'statename', caption: 'State Name', size: '120px',searchable: true },
+        ],
+
+ 
+        onSearch: function(event) {
+        //w2ui['grid'].records
+       console.log(event);
+        window.open("searchResult","_self")
+        var new_obj =event.searchData;
+        var url_params='';
+      for (var i = 0; i < new_obj.length; i++) { 
+    //console.log(new_obj[i].field);
+    //console.log(new_obj[i].value);
+    //console.log(new_obj[i].operator);
+
+        url_params = url_params + "field"+i+"="+new_obj[i].field +","+new_obj[i].operator+","+new_obj[i].value+"&";
+
+        window.open("searchResult?"+url_params.slice(0,url_params.length-1),"_self")
+
+
+}
+
+      // console.log(w2ui['grid'].records);
+       // console.log(event.searchData[0]);
+       // console.log(searchData);
+    }  ,
+
+
+        onClick: function(event) {
+            var grid = this;
+            var form = w2ui.form;
+            console.log(event);
+            event.onComplete = function () {
+                var sel = grid.getSelection();
+                console.log(sel);
+                if (sel.length == 1) {
+                    form.officename  = sel[0];
+                    form.record = $.extend(true, {}, grid.get(sel[0]));
+                    form.refresh();
+                } else {
+                    form.clear();
+                }
+            }
+        }
+    }
+}
+
+
+function httpGet(theUrl)
+{
+    var xmlHttp = null;
+
+    xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+//alert('{{details}}');
+      var temp = {{ details|tojson }};
+console.log(temp);
+//obj = JSON.parse(temp);
+config.grid['records'] = temp.records;
+
+
+$(function () {
+    // initialization
+    $('#main').w2layout(config.layout);
+    w2ui.layout.content('left', $().w2grid(config.grid));
+    w2ui.layout.content('main', $().w2form(config.form));
+});
+</script>
+
+</body>
+</html>

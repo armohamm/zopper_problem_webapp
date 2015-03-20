@@ -1,0 +1,8 @@
+Search API
+
+>>> o=[('field0', u'pincode,contains,800002')]
+>>> a=requests.post('http://127.0.0.1:5000/searchAPI',params=o)
+>>> a.text
+u'{\n  "records": [\n    {\n      "Deliverystatus": "Delivery", \n      "Districtname": "Patna", \n      "Taluk": "Phulwari", \n      "circlename": "Bihar", \n
+
+
